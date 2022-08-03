@@ -1,0 +1,85 @@
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using WebApplication1.Models;
+
+namespace WebApplication1.Controllers
+{
+    public class OrderController : Controller
+    {
+
+        OrderDbContext _context;
+
+        public OrderController(OrderDbContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            List<Customer> stList = _context.Customers.ToList();
+            return View(stList);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Customer obj)
+        {
+            _context.Customers.Add(obj);
+            object p = _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Details(int id)
+        {
+            Customer obj = _context.Customers.Find(id);
+            return View(obj);
+        }
+
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            Customer obj = _context.Customers.Find(id);
+            return View(obj);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Customer obj)
+        {
+            _context.Customers.Update(obj);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            Customer obj = _context.Customer.Find(id);
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public IActionResult DeleteConfirm(int id)
+        {
+            Customer obj = _context.Customers.Find(id);
+            _context.Customers.Remove(obj);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+    }
+}

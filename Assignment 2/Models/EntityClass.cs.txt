@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+namespace WebApplication1.Models
+{
+    public class Customer
+    {
+        public int OrderId { get; set; }
+        public string CustomerName { get; set; }
+        public int Date { get; set; }
+    
+        public int OrderAmount { get; set; }
+    }
+
+    public class OrderDbContext : DbContext
+    {
+        public DbSet<Order> Students { get; set; }
+        public object Customer { get; internal set; }
+        public object Customers { get; internal set; }
+
+        public OrderDbContext(DbContextOptions<OrderDbContext> options)
+         : base(options)
+        {
+
+        }
+    }
+}
