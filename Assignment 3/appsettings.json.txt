@@ -1,0 +1,13 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "ConnectionStrings": {
+    "EmployDbContext": "Server=WINDOWS-UNR7VLH;Database=EmployDb;Integrated Security=True"
+  }
+
+}

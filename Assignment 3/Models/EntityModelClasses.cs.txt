@@ -1,0 +1,23 @@
+using Microsoft.EntityFrameworkCore;
+
+namespace WebApplication4.Models
+{
+    public class Employ
+    {
+        public int EmployId { get; set; }
+        public string EmployName { get; set; }
+        public int Sal { get; set; }
+        public string Job { get; set; }
+    }
+
+    public class EmployDbContext : DbContext
+    {
+        public DbSet<Employ> Employees { get; set; }
+
+        public EmployDbContext(DbContextOptions<EmployDbContext> options)
+         : base(options)
+        {
+
+        }
+    }
+}

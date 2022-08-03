@@ -1,0 +1,45 @@
+using WebApplication4.Models;
+
+namespace WebApplication4.Repositries
+{
+    public class EmployRepo : IEmployRepo
+    {
+        EmployDbContext _context;
+
+        public EmployRepo(EmployDbContext context)
+        {
+            _context = context;
+        }
+
+        public void AddEmploy(Employ obj)
+        {
+            _context.Employs.Add(obj);
+            _context.SaveChanges();
+        }
+
+        public void DeleteEmploy(int id)
+        {
+            Employ obj = _context.Employs.Find(id);
+            _context.Employs.Remove(obj);
+            _context.SaveChanges();
+        }
+
+        public List<Employ> GetAllEmploy()
+        {
+            List<Employ> stList = _context.Employs.ToList();
+            return stList;
+        }
+
+        public Employ GetEmployById(int id)
+        {
+            Employ obj = _context.Employ.Find(id);
+            return obj;
+        }
+
+        public void UpdateStudent(Employ obj)
+        {
+            _context.Employs.Update(obj);
+            _context.SaveChanges();
+        }
+    }
+}
