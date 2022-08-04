@@ -1,0 +1,84 @@
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace DriverServices.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class DriverController : ControllerBase
+    {
+UberDbContext _context;
+
+        public driverController(UberDbContext  context)
+        {
+            _context = context; 
+        }
+
+        public IActionResult Index()
+        {
+            List<driver>  stList = _context.drivers.ToList();
+            return View(stList);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(driver obj)
+        {
+            _context.drivers.Add(obj);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Details(int id)
+        {
+            driver obj = _context.drivers.Find(id);
+            return View(obj);
+        }
+
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            driver obj = _context.drivers.Find(id);
+            return View(obj);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(driver obj)
+        {
+            _context.drivers.Update(obj);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            driver obj = _context.drivers.Find(id);
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public IActionResult DeleteConfirm(int id)
+        {
+            driver obj = _context.drivers.Find(id);
+            _context.drivers.Remove(obj);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+    }
+}

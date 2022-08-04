@@ -1,0 +1,85 @@
+
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+namespace PassengerServices.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PassengerController : ControllerBase
+    {
+UberDbContext _context;
+
+        public passengerController(UberDbContext  context)
+        {
+            _context = context; 
+        }
+
+        public IActionResult Index()
+        {
+            List<passenger>  stList = _context.passengers.ToList();
+            return View(stList);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(passenger obj)
+        {
+            _context.passengers.Add(obj);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Details(int id)
+        {
+            passenger obj = _context.passengers.Find(id);
+            return View(obj);
+        }
+
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            passenger obj = _context.passengers.Find(id);
+            return View(obj);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(passenger obj)
+        {
+            _context.passengers.Update(obj);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            passenger obj = _context.passengers.Find(id);
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public IActionResult DeleteConfirm(int id)
+        {
+            passenger obj = _context.passengers.Find(id);
+            _context.passengers.Remove(obj);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+    }
+}
